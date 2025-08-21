@@ -130,6 +130,23 @@ public:
         head += len;
     }
 
+    void Insert(int pos, const VectorType& element) {
+        if (pos < 0) pos = 0;
+        if (pos > Size()) pos = Size();
+
+        // Make space if necessary
+        if (Size() + 1 > Capacity())
+            ReAllocate(MAX(Size() + 1, Size() * 2));
+
+        // Shift elements to the right
+        for (int i = Size(); i > pos; --i) {
+            begin[i] = begin[i - 1];
+        }
+
+        begin[pos] = element;
+        head++;
+    }
+
     void Erase(unsigned int position) { Erase(position, position + 1); }
 
     // Erase an arbitrary section of the Vector from first up to last minus one. Like the stl counterpart, this is pretty labour intensive so go easy on it.
@@ -267,3 +284,4 @@ private:
 };
 
 #endif
+
